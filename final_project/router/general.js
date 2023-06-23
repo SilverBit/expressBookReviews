@@ -6,8 +6,31 @@ const public_users = express.Router();
 
 
 public_users.post("/register", (req,res) => {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    const usernameReg = req.body.username;
+    const passwordReg = req.body.password;
+
+    //In case username or password is empty
+    if(!usernameReg || !passwordReg){
+        return res.status(404).json({message: "Error in Registration: Username or Password are blank!"});
+    }
+
+    //In case the username is taken
+    let usernameFilter = users.filter((user) => usernameReg === user.username);
+    
+    //console.log("UserName Filter: " + JSON.stringify(usernameFilter));
+    //console.log(Object.keys(usernameFilter));
+    if(Object.keys(usernameFilter).length>0){ //If the size of usernameFilter is 1, it means it found the username on users.username
+        return res.status(404).json({message: "Error in Registration: Username Already Taken!"});
+    }
+
+    //In case everything is alright, the registration begins
+    const newUser = {
+        username: usernameReg,
+        password: passwordReg
+    }
+    users.push(newUser);
+    //console.log("Users: " + JSON.stringify(users));
+    res.send('User successfully Registered!');
 });
 
 // Get the book list available in the shop
