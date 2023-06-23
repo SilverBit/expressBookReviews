@@ -60,9 +60,8 @@ public_users.get('/review/:isbn',function (req, res) {
 
   bookKeys.forEach((key) => {
       const book = books[key];
-      console.log(key);
+      //console.log(key);
       if (key === isbn) {
-          
           res.send(JSON.stringify(book.reviews));
       }
       });
