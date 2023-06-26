@@ -8,6 +8,13 @@ const app = express();
 
 app.use(express.json());
 
+let users = [
+    {
+        username: "test1",
+        password: "test2"
+    }
+];
+
 const authenticatedUser = (username,password)=>{
     let validusers = users.filter((user)=>{
       return (user.username === username && user.password === password)
@@ -23,9 +30,9 @@ app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUni
 
 app.use("/customer/auth/*", function auth(req,res,next){
     const username = req.body.username;
-  const password = req.body.password;
+    const password = req.body.password;
   if (!username || !password) {
-      return res.status(404).json({message: "Error logging in"});
+      return res.status(404).json({message: "Error logging in Tess"});
   }
  if (authenticatedUser(username,password)) {
     let accessToken = jwt.sign({
