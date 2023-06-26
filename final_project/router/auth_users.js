@@ -23,6 +23,7 @@ const authenticatedUser = (username,password)=>{
 //only registered users can login
 regd_users.post("/login", (req,res) => {
 
+    console.log("USERS: " + + JSON.stringify(users));
   //Validate
   const username = req.body.username;
   const password = req.body.password;
@@ -38,7 +39,7 @@ regd_users.post("/login", (req,res) => {
       req.session.authorization = {
         accessToken,username
     }
-    console.log("USERS: " + users);
+    
       return res.status(200).send("User successfully logged in");
   } else {
       return res.status(208).json({message: "Invalid Login. Check username and password"});
@@ -63,6 +64,10 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     else{
         res.send("Unable to find this ISBN!");
     }
+});
+
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+    
 });
 
 module.exports.authenticated = regd_users;

@@ -27,12 +27,13 @@ const authenticatedUser = (username,password)=>{
   }
 
 app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUninitialized: true}))
+app.use("/customer", customer_routes);
 
 app.use("/customer/auth/*", function auth(req,res,next){
     const username = req.body.username;
     const password = req.body.password;
   if (!username || !password) {
-      return res.status(404).json({message: "Error logging in Tess"});
+      return res.status(404).json({message: "Error logging in"});
   }
  if (authenticatedUser(username,password)) {
     let accessToken = jwt.sign({
@@ -49,7 +50,7 @@ app.use("/customer/auth/*", function auth(req,res,next){
  
 const PORT =5000;
 
-app.use("/customer", customer_routes);
+
 app.use("/", genl_routes);
 
 app.listen(PORT,()=>console.log("Server is running"));
