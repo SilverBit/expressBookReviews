@@ -101,5 +101,16 @@ public_users.get('/books',function (req, res) {
       get_books.then(() => console.log("Book list retrieved!"));
   });
 
-  
+  //Axios Promise : Get book based on ISBN
+
+public_users.get('/books/isbn/:isbn',function (req, res) {
+    const get_isbn = new Promise((resolve, reject) => {
+        const isbn = req.params.isbn;
+
+        resolve(res.send(books[isbn]),null,4);
+      });
+      get_isbn.then(() => console.log("Book base on ISBN retrieved!"));
+  });
+
+
 module.exports.general = public_users;
