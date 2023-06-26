@@ -133,4 +133,23 @@ public_users.get('/books/author/:author',function (req, res) {
     get_author.then(() => console.log("Book based on author retrieved!"));
   });
 
+  //Axios Promise : Get book based on title
+
+public_users.get('/books/title/:title',function (req, res) {
+    
+    const get_titile = new Promise((resolve,reject) => {
+        const bookKeys = Object.keys(books);
+        const title = req.params.title;
+      
+        bookKeys.forEach((key) => {
+        const book = books[key];
+        if (book.title === title) {
+            resolve(res.send(JSON.stringify(book)),null,4);
+        }
+        });
+  });
+  get_title.then(() => console.log("Book based on title retrieved!"));
+  });
+
+
 module.exports.general = public_users;
