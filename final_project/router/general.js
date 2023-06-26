@@ -91,4 +91,15 @@ public_users.get('/review/:isbn',function (req, res) {
       });
 });
 
+
+//Axios Promise : Get book list
+
+public_users.get('/books',function (req, res) {
+    const get_books = new Promise((resolve, reject) => {
+        resolve(res.send(JSON.stringify({books}, null, 4)));
+      });
+      get_books.then(() => console.log("Book list retrieved!"));
+  });
+
+  
 module.exports.general = public_users;
