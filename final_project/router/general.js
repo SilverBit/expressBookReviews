@@ -29,7 +29,8 @@ public_users.post("/register", (req,res) => {
         password: passwordReg
     }
     users.push(newUser);
-    //console.log("Users: " + JSON.stringify(users));
+
+    console.log("Users: " + JSON.stringify(users));
     res.send('User successfully Registered!');
 });
 
