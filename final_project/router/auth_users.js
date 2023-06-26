@@ -67,7 +67,18 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
 });
 
 regd_users.delete("/auth/review/:isbn", (req, res) => {
-    
+  const isbn = req.params.isbn;
+  let reviewer = req.session.authorization['username'];
+  let filtered_review = books[isbn]["reviews"];
+  if (filtered_review[reviewer]){
+      console.log("Before: " + filtered_review[reviewer]);
+      delete filtered_review[reviewer];
+      console.log("After: " + filtered_review[reviewer]);
+      res.send(`Reviews for the ISBN  ${isbn} posted by the user ${reviewer} deleted.`);
+  }
+  else{
+      res.send("Can't delete, as this review has been posted by a different user");
+  }
 });
 
 module.exports.authenticated = regd_users;
