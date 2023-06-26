@@ -112,5 +112,25 @@ public_users.get('/books/isbn/:isbn',function (req, res) {
       get_isbn.then(() => console.log("Book base on ISBN retrieved!"));
   });
 
+  //Axios Promise : Get book based on author
+
+public_users.get('/books/author/:author',function (req, res) {
+    
+    const get_author = new Promise((resolve,reject) => {
+        const author = req.params.author;
+        const bookKeys = Object.keys(books);
+        const author_books = [];
+    
+        bookKeys.forEach((key) => {
+        const book = books[key];
+        if (book.author === author) {
+            author_books.push(book);
+        }
+        });
+  
+    resolve(res.send(JSON.stringify(author_books)),null,4);
+    });
+    get_author.then(() => console.log("Book based on author retrieved!"));
+  });
 
 module.exports.general = public_users;
